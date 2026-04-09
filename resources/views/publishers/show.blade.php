@@ -1,28 +1,44 @@
 @extends('layout')
 
-@section('title', $publisher['publisher'])
+@section('title', $publisher->name)
 
 @section('content')
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <a href="{{ route('publishers.index') }}" class="btn btn-dark">
+            Back
+        </a>
+
+        <h1 class="m-0 text-center flex-grow-1">
+            {{ $publisher->publisher }}
+        </h1>
+
+        <div style="width: 80px;"></div>
+    </div>
+
     <div class="card shadow-sm">
         <div class="card-body">
-            <h1 class="card-title mb-3">{{ $publisher['publisher'] }}</h1>
+            <p><strong>Country:</strong> {{ $publisher->country }}</p>
+            <p><strong>Founded:</strong> {{ $publisher->founded }}</p>
+            <p><strong>Genere:</strong> {{ $publisher->genre }}</p>
 
-            <p><strong>Country:</strong> {{ $publisher['country'] }}</p>
-            <p><strong>Founded:</strong> {{ $publisher['founded'] }}</p>
-            <p><strong>Genre:</strong> {{ $publisher['genere'] }}</p>
-
-            <h4 class="mt-4">Books published</h4>
+            <h4 class="mt-4">Books</h4>
             <ul class="list-group mb-3">
-                @foreach ($publisher['books'] as $book)
-                    <li class="list-group-item">
-                        <a href="{{ route('books.show', $book['id']) }}">
-                            {{ $book['title'] }}
+                @forelse ($publisher->books as $book)
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>{{ $book->title }}</span>
+                        <a href="{{ route('books.show', $book->id) }}" class="btn btn-primary btn-sm">
+                            View
                         </a>
                     </li>
-                @endforeach
+                @empty
+                    <li class="list-group-item">No books available.</li>
+                @endforelse
             </ul>
 
-            <a href="{{ route('publishers.index') }}" class="btn btn-secondary">Back to Publishers</a>
+           
+            <a href="{{ route('publishers.edit', $publisher->id) }}" class="btn btn-warning mt-3">Edit Publisher</a>
+
+            <a href="{{ route('publishers.index') }}" class="btn btn-secondary mt-3">Back to Publishers</a>
         </div>
     </div>
 @endsection

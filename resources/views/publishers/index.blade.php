@@ -1,28 +1,29 @@
 @extends('layout')
 
-@section('title', 'Editoriales')
+@section('title', 'Publishers')
 
 @section('content')
-  <div class="d-flex align-items-center justify-content-between mb-4">
+   <div class="d-flex align-items-center justify-content-between mb-4">
+        <a href="{{ route('books.index') }}" class="btn btn-dark">
+                Back
+        </a>
 
-    <a href="{{ route('books.index') }}" class="btn btn-dark">
-        Atrás
-    </a>
+        <h1 class="m-0 text-center flex-grow-1">
+            Publishers
+        </h1>
+    </div>
+    <div class="mb-4 text-end">
+        <a href="{{ route('publishers.create') }}" class="btn btn-success">Add Publisher</a>
+    </div>
 
-    <h1 class="m-0 text-center flex-grow-1">
-       Publishers
-    </h1>
-</div>
-
-    </div> 
     <div class="row">
         @foreach ($publishers as $publisher)
-            <div class="col-md-6 col-lg-4 mb-4  align-items-center">
+            <div class="col-md-6 col-lg-4 mb-4">
                 <div class="card shadow-sm h-100">
-                    <div class="card-body text-center ">
+                    <div class="card-body text-center">
                         <h5 class="card-title">{{ $publisher['publisher'] }}</h5>
                         <p class="card-text text-muted">{{ $publisher['country'] }}</p>
-                        <a href="{{ route('publishers.show', $publisher['id']) }}" class="btn btn-secondary btn-sm">
+                        <a href="{{ route('publishers.show', $publisher['id']) }}" class="btn btn-dark btn-sm">
                             View details
                         </a>
                     </div>
@@ -30,5 +31,4 @@
             </div>
         @endforeach
     </div>
-    
 @endsection

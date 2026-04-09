@@ -9,7 +9,7 @@ class Publisher extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['publisher', 'country', 'founded', 'genere'];
+    protected $fillable = ['publisher', 'country', 'founded', 'genre'];
 
     public function books()
     {
