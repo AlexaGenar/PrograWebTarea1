@@ -5,14 +5,19 @@
 @section('content')
     <h1 class="text-center mb-4">Books</h1>
 
+    <div class="text-center mt-4">
+        <a href="{{ route('books.create') }}" class="btn btn-dark">Add Book</a>
+    </div>
+
     <div class="row">
         @foreach ($books as $book)
             <div class="col-md-6 col-lg-4 mb-4">
                 <div class="card shadow-sm h-100">
                     <div class="card-body text-center">
-                        <h5 class="card-title">{{ $book['title'] }}</h5>
-                        <p class="card-text text-muted">{{ $book['author'] }}</p>
-                        <a href="{{ route('books.show', $book['id']) }}" class="btn btn-primary btn-sm">
+                        <h5 class="card-title">{{ $book->title }}</h5>
+                        <p class="card-text text-muted">{{ $book->author->author }}</p> <!-- Mostrar nombre del autor -->
+                        <p class="card-text text-muted">{{ $book->publisher->name }}</p> <!-- Mostrar nombre de la editorial -->
+                        <a href="{{ route('books.show', $book->id) }}" class="btn btn-primary btn-sm">
                             View Details
                         </a>
                     </div>

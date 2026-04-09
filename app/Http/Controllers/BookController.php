@@ -1,72 +1,77 @@
 <?php
+
 namespace App\Http\Controllers;
+
+use App\Models\Book;  // Asegúrate de importar el modelo Book
+use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    private function getBooks()
-    {
-        return [
-            1 => [
-                'id' => 1,
-                'title' => 'Operating System Concepts',
-                'edition' => '9th',
-                'copyright' => 2012,
-                'language' => 'English',
-                'pages' => 976,
-                'author' => 'Abraham Silberschatz',
-                'author_id' => 1,
-                'publisher' => 'John Wiley & Sons',
-                'publisher_id' => 1,
-            ],
-            2 => [
-                'id' => 2,
-                'title' => 'Database System Concepts',
-                'edition' => '6th',
-                'copyright' => 2010,
-                'language' => 'English',
-                'pages' => 1376,
-                'author' => 'Abraham Silberschatz',
-                'author_id' => 1,             
-                'publisher' => 'John Wiley & Sons',
-                'publisher_id' => 1,
-            ],
-            3 => [
-                'id' => 3,
-                'title' => 'Computer Networks',
-                'edition' => '5th',
-                'copyright' => 2010,
-                'language' => 'English',
-                'pages' => 960,       
-                'author' => 'Andrew S. Tanenbaum',
-                'author_id' => 2,
-                'publisher' => 'Pearson Education',
-                'publisher_id' => 2,
-            ],
-            4 => [
-                'id' => 4,
-                'title' => 'Modern Operating Systems',
-                'edition' => '4th',
-                'copyright' => 2014,
-                'language' => 'English',
-                'pages' => 1136,        
-                'author' => 'Andrew S. Tanenbaum',
-                'author_id' => 2,              
-                'publisher' => 'Pearson Education',
-                'publisher_id' => 2,
-            ],
-        ];
-    }
-
+    // Muestra todos los libros
     public function index()
     {
-        $books = $this->getBooks();
-        return view('books.index', compact('books'));
+        $books = Book::all();  // Obtiene todos los libros de la base de datos
+        return view('books.index', compact('books'));  // Pasa los libros a la vista
     }
 
+    // Muestra el detalle de un libro específico
     public function show($id)
     {
-        $books = $this->getBooks();
-        $book = $books[$id];
-        return view('books.show', compact('book'));
+        $book = Book::findOrFail($id);  // Encuentra el libro por ID o lanza un error 404 si no existe
+        return view('books.show', compact('book'));  // Pasa el libro a la vista
+    }
+
+    // Muestra el formulario para crear un nuevo libro
+   // Muestra el formulario para crear un nuevo libro
+public function create()
+{
+    $authors = Author::all();  // Obtener todos los autores desde la base de datos
+    $publishers = Publisher::all();  // Obtener todas las editoriales desde la base de datos
+    return view('books.create', compact('authors', 'publishers'));  // Pasar los autores y publishers a la vista
+}
+
+    // Guarda un nuevo libro en la base de datos
+    public function store(Request $request)
+    {
+        $request->validate([  // Valida los datos del formulario
+            'title' => 'required',
+            'edition' => 'required',
+            'copyright' => 'required',
+            'language' => 'required',
+            'pages' => 'required|integer',
+            'author_id' => 'required|exists:authors,id',  // Valida que el autor exista
+            'publisher_id' => 'required|exists:publishers,id',  // Valida que la editorial exista
+        ]);
+
+        // Crea el libro en la base de datos
+        Book::create($request->all()); 
+
+        return redirect()->route('books.index');  // Redirige a la lista de libros
+    }
+
+    // Muestra el formulario para editar un libro
+    public function edit($id)
+    {
+        $book = Book::findOrFail($id);  // Encuentra el libro por ID o lanza error 404
+        return view('books.edit', compact('book'));  // Pasa el libro a la vista de edición
+    }
+
+    // Actualiza los datos de un libro en la base de datos
+    public function update(Request $request, $id)
+    {
+        $request->validate([  // Valida los datos del formulario
+            'title' => 'required',
+            'edition' => 'required',
+            'copyright' => 'required',
+            'language' => 'required',
+            'pages' => 'required|integer',
+            'author_id' => 'required|exists:authors,id',  // Valida que el autor exista
+            'publisher_id' => 'required|exists:publishers,id',  // Valida que la editorial exista
+        ]);
+
+        $book = Book::findOrFail($id);  // Encuentra el libro por ID o lanza error 404
+        $book->update($request->all());  // Actualiza los datos del libro
+
+        return redirect()->route('books.index');  // Redirige a la lista de libros
     }
 }

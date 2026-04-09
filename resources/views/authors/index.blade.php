@@ -4,16 +4,18 @@
 
 @section('content')
    <div class="d-flex align-items-center justify-content-between mb-4">
+        <a href="{{ route('books.index') }}" class="btn btn-dark">
+            Back
+        </a>
 
-    <a href="{{ route('books.index') }}" class="btn btn-dark">
-        Atrás
-    </a>
+        <h1 class="m-0 text-center flex-grow-1">
+            Authors
+        </h1>
+    </div>
 
-    <h1 class="m-0 text-center flex-grow-1">
-        Authors
-    </h1>
-</div>
-
+    <div class="mb-4 text-end">
+        <a href="{{ route('authors.create') }}" class="btn btn-success">Add Author</a>
+    </div>
 
     <div class="row">
         @foreach ($authors as $author)
