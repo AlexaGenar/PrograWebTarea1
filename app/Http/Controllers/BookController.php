@@ -50,12 +50,13 @@ class BookController extends Controller
         return redirect()->route('books.index');  
     }
 
-    public function edit($id)
-    {
-        $book = Book::findOrFail($id);  
-        return view('books.edit', compact('book'));  
-    }
-
+   public function edit($id)
+{
+    $book = Book::findOrFail($id);  
+    $authors = Author::all();  
+    $publishers = Publisher::all();  
+    return view('books.edit', compact('book', 'authors', 'publishers'));  
+}
     
     public function update(Request $request, $id)
     {

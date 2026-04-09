@@ -15,8 +15,8 @@
                 <div class="card shadow-sm h-100">
                     <div class="card-body text-center">
                         <h5 class="card-title">{{ $book->title }}</h5>
-                        <p class="card-text text-muted">{{ $book->author->author }}</p> <!-- Mostrar nombre del autor -->
-                        <p class="card-text text-muted">{{ $book->publisher->name }}</p> <!-- Mostrar nombre de la editorial -->
+                        <p class="card-text text-muted">{{ $book->author->author }}</p>
+                        <p class="card-text text-muted">{{ $book->publisher->publisher }}</p> 
                         <a href="{{ route('books.show', $book->id) }}" class="btn btn-primary btn-sm">
                             View Details
                         </a>
