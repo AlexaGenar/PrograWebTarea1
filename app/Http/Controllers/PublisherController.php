@@ -37,16 +37,16 @@ class PublisherController extends Controller
             'genere' => 'required|string|max:255',
         ]);
 
-        Publisher::create($request->all());  // Crear nuevo publisher
+        Publisher::create($request->all());  
 
-        return redirect()->route('publishers.index');  // Redirigir al listado de publishers
+        return redirect()->route('publishers.index');  
     }
 
     // Mostrar formulario para editar publisher
     public function edit($id)
     {
-        $publisher = Publisher::findOrFail($id);  // Buscar publisher por ID
-        return view('publishers.edit', compact('publisher'));  // Vista para editar publisher
+        $publisher = Publisher::findOrFail($id);  
+        return view('publishers.edit', compact('publisher'));  
     }
 
     // Actualizar publisher en la base de datos
@@ -59,9 +59,8 @@ class PublisherController extends Controller
             'genere' => 'required|string|max:255',
         ]);
 
-        $publisher = Publisher::findOrFail($id);  // Buscar publisher por ID
-        $publisher->update($request->all());  // Actualizar publisher con nuevos datos
-
-        return redirect()->route('publishers.index');  // Redirigir al listado de publishers
+        $publisher = Publisher::findOrFail($id);  
+        $publisher->update($request->all());  
+        return redirect()->route('publishers.index');  
     }
 }
