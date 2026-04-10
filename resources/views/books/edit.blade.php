@@ -36,7 +36,7 @@
             <label for="author_id">Author</label>
             <select name="author_id" class="form-control" required>
                 @foreach($authors as $author)
-                    <option value="{{ $author->id }}" {{ $author->id == $book->author_id ? 'selected' : '' }}>{{ $author->name }}</option>
+                    <option value="{{ $author->id }}" {{ $author->id == $book->author_id ? 'selected' : '' }}>{{ $author->author }}</option>
                 @endforeach
             </select>
         </div>
@@ -45,7 +45,7 @@
             <label for="publisher_id">Publisher</label>
             <select name="publisher_id" class="form-control" required>
                 @foreach($publishers as $publisher)
-                    <option value="{{ $publisher->id }}" {{ $publisher->id == $book->publisher_id ? 'selected' : '' }}>{{ $publisher->name }}</option>
+                    <option value="{{ $publisher->id }}" {{ $publisher->id == $book->publisher_id ? 'selected' : '' }}>{{ $publisher->publisher }}</option>
                 @endforeach
             </select>
         </div>

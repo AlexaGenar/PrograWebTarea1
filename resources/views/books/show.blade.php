@@ -20,10 +20,11 @@
             <p>
                 <strong>Publisher:</strong>
                 <a href="{{ route('publishers.show', $book->publisher->id) }}">
-                    {{ $book->publisher->name }}
+                    {{ $book->publisher->publisher }}
                 </a>
             </p>
-
+             <a href="{{ route('books.edit', $book->id) }}" class="btn btn-warning mt-3">Edit Book</a>
+             
             <a href="{{ route('books.index') }}" class="btn btn-secondary mt-3">Back to Books</a>
         </div>
     </div>

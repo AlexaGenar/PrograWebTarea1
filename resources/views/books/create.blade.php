@@ -48,7 +48,7 @@
             <select name="publisher_id" class="form-control" required>
                 <option value="">Select a publisher</option>
                 @foreach($publishers as $publisher)
-                    <option value="{{ $publisher->id }}">{{ $publisher->name }}</option>
+                    <option value="{{ $publisher->id }}">{{ $publisher->publisher }}</option>
                 @endforeach
             </select>
         </div>
